@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        Spit.r
+    </title>
+    <link rel="icon" href="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons/glossy-black-icons-natural-wonders/051417-glossy-black-icon-natural-wonders-raindrop2.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.typeit/4.2.3/typeit.min.js"></script>
+
+    <script type="text/javascript" src="/public/controller.js"></script>
+    <script type="text/javascript" src="/public/script.js"></script>
+</head>
+
+<body ng-app="TweetListDisplay">
+
+
+    <!-- Title -->
+    <div class="container section">
+        <h1 style="font-size:40px"><strong>Spit<strong class ="red-text">.</strong>r</strong>
+        </h1>
+        <h2 style=" font-size:25px">
+            <span class="red-text">{</span>
+            <span>spit_it</span>
+            <span class="red-text">:</span>
+            <span id="typingText"></span>
+            <span class="red-text">}</span>
+        </h2>
+    </div>
+
+    <!-- inut field and tweet field -->
+    <div class="container">
+        <br/>
+
+        <!-- inut field -->
+        <form>
+            <div class="input-group card-panel input-field pink darken-4">
+                <input id="input-tweetField" type="text" class="form-control" placeholder="Message" style="font-size:25px;color:white" maxLength="200" rows="5"></input>
+                <span class="input-group-btn" style="display: inline-block">
+                    <a id = "but-submit" type = "button" class="waves-effect waves-light btn red">SEND
+                     <i class="material-icons right">send</i>
+                    </a>
+                </span>
+                <span id="charCountSpan" class="input-group-btn" style="display: inline-block">
+                    <p id = "charCount" style="color:white;font-size:17px">200 characters left</p>
+                </span>
+                <span id="charCountSpan" class="input-group-btn left-align" style="display: inline-block">
+                    <p id = "hashtagError" style="color:white;font-size:17px">Tweet must start with a hashtag #</p>
+                </span>
+            </div>
+        </form>
+        <br/>
+
+        <!-- tweet field -->
+        <div class="section  card-panel pink darken-4" id="conId" ng-controller="MainController">
+            <ul id="tweetList">
+                <li ng-repeat="tweet in tweets  | orderBy : '_id' : true | limitTo:20">
+                    <div class="card-panel pink darken-2" style="font-size:25px;color:white" ng-click="deleteTweet($index)">
+                        <span style="color:#ffe0b2">{{tweet.key}}</span> {{tweet.content}}
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>
