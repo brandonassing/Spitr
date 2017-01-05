@@ -5,7 +5,7 @@ var app = angular.module('TweetListDisplay', []);
  * My controller
  * 
  */
-app.controller('MainController', ['$scope', '$http', '$interval', function($scope, $http, $interval) {
+app.controller('MainController', ['$scope', '$http', '$interval', function ($scope, $http, $interval) {
     refresh();
 
     //refresh page every second
@@ -16,11 +16,11 @@ app.controller('MainController', ['$scope', '$http', '$interval', function($scop
      *
      */
     function refresh() {
-        $http.get('https://bassing-se3316a-lab03-bassing.c9users.io/api/tweets')
-            .success(function(data) {
+        $http.get('/api/tweets')
+            .success(function (data) {
                 $scope.tweets = data;
             })
-            .error(function(err) {
+            .error(function (err) {
                 return err;
             });
     }
@@ -29,15 +29,15 @@ app.controller('MainController', ['$scope', '$http', '$interval', function($scop
      * Http post request called from script.js in post()
      *
      */
-    $scope.postTweet = function(cnt, ky) {
-        $http.post('https://bassing-se3316a-lab03-bassing.c9users.io/api/tweets', {
+    $scope.postTweet = function (cnt, ky) {
+        $http.post('/api/tweets', {
             content: cnt,
             key: ky
         }).
-        success(function(data, status) {
+        success(function (data, status) {
             refresh();
         }).
-        error(function(data, status) {
+        error(function (data, status) {
             window.alert("Failed to post to database. Please refresh page.");
         });
 
@@ -47,12 +47,12 @@ app.controller('MainController', ['$scope', '$http', '$interval', function($scop
      * Http delete request called when a tweet is clicked
      *
      */
-    $scope.deleteTweet = function(index) {
-        $http.delete('https://bassing-se3316a-lab03-bassing.c9users.io/api/tweets/' + $scope.tweets[$scope.tweets.length - 1 - index]._id).
-        success(function(data, status) {
+    $scope.deleteTweet = function (index) {
+        $http.delete('/api/tweets/' + $scope.tweets[$scope.tweets.length - 1 - index]._id).
+        success(function (data, status) {
             refresh();
         }).
-        error(function(data, status) {
+        error(function (data, status) {
             window.alert("Failed to delete from database. Please refresh page.");
         });
 
