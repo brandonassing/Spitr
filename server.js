@@ -19,7 +19,7 @@ var port = process.env.PORT || 8080; // set our port
 
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://main:main@ds155418.mlab.com:55418/spitr');
+mongoose.connect('mongodb://main:main@ds151059.mlab.com:51059/spitr');
 
 var Tweet = require('./tweet');
 
@@ -28,7 +28,7 @@ var Tweet = require('./tweet');
 var router = express.Router(); // get an instance of the express Router
 
 // middleware to use for all requests
-router.use(function (req, res, next) {
+router.use(function(req, res, next) {
     // do logging
     console.log('Something is happening.');
     next(); // make sure we go to the next routes and don't stop here
@@ -36,7 +36,7 @@ router.use(function (req, res, next) {
 
 
 // test route to make sure everything is working (accessed at GET http://localhost:8080/api)
-router.get('/', function (req, res) {
+router.get('/', function(req, res) {
     res.json({
         message: 'hooray! welcome to our api!'
     });
@@ -48,7 +48,7 @@ router.get('/', function (req, res) {
 router.route('/tweets')
 
 // create a tweet (accessed at POST http://localhost:8080/api/tweets)
-.post(function (req, res) {
+.post(function(req, res) {
 
     var tweet = new Tweet(); // create a new instance of the tweet model
     console.log("post");
@@ -56,7 +56,7 @@ router.route('/tweets')
     tweet.content = req.body.content; // set the tweets name 
     tweet.key = req.body.key;
     // save the tweet and check for errors
-    tweet.save(function (err) {
+    tweet.save(function(err) {
         if (err)
             return res.send(err);
 
@@ -68,9 +68,9 @@ router.route('/tweets')
     });
 })
 
-.get(function (req, res) {
+.get(function(req, res) {
     console.log("gotten");
-    Tweet.find(function (err, tweet) {
+    Tweet.find(function(err, tweet) {
         if (err)
             return res.send(err);
 
@@ -84,17 +84,17 @@ router.route('/tweets')
 router.route('/tweets/:tweet_id')
 
 // get the tweet with that id (accessed at GET http://localhost:8080/api/tweets/:tweet_id)
-.get(function (req, res) {
-        Tweet.findById(req.params.tweet_id, function (err, tweet) {
+.get(function(req, res) {
+        Tweet.findById(req.params.tweet_id, function(err, tweet) {
             if (err)
                 res.send(err);
             res.json(tweet);
         });
     })
-    .put(function (req, res) {
+    .put(function(req, res) {
 
         // use our tweet model to find the tweet we want
-        Tweet.findById(req.params.tweet_id, function (err, tweet) {
+        Tweet.findById(req.params.tweet_id, function(err, tweet) {
 
             if (err)
                 res.send(err);
@@ -102,7 +102,7 @@ router.route('/tweets/:tweet_id')
             tweet.content = req.body.content; // update the tweets info
 
             // save the tweet
-            tweet.save(function (err) {
+            tweet.save(function(err) {
                 if (err)
                     res.send(err);
 
@@ -113,10 +113,10 @@ router.route('/tweets/:tweet_id')
 
         });
     })
-    .delete(function (req, res) {
+    .delete(function(req, res) {
         Tweet.remove({
             _id: req.params.tweet_id
-        }, function (err, tweet) {
+        }, function(err, tweet) {
             if (err)
                 res.send(err);
 
