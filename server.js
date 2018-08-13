@@ -30,7 +30,7 @@ var router = express.Router(); // get an instance of the express Router
 // middleware to use for all requests
 router.use(function(req, res, next) {
     // do logging
-    console.log('Something is happening.');
+    //console.log('Something is happening.');
     next(); // make sure we go to the next routes and don't stop here
 });
 
@@ -69,11 +69,11 @@ router.route('/tweets')
 })
 
 .get(function(req, res) {
-    console.log("gotten");
+    //console.log("gotten");
     Tweet.find(function(err, tweet) {
+        console.log(tweet);
         if (err)
             return res.send(err);
-
         res.json(tweet);
     });
 

@@ -54,6 +54,7 @@ app.controller('MainController', ['$scope', '$http', '$interval', function ($sco
         }).
         error(function (data, status) {
             window.alert("Failed to delete from database. Please refresh page.");
+            console.log(data);
         });
 
     };
